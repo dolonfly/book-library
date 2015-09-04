@@ -9,8 +9,6 @@ function generateBookInfo(req, res, next) {
     douban_service.generateBook(isbn, function (err, resout) {
         res.json(resout);
     });
-
-    next();
 }
 
 module.exports = {
