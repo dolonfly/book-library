@@ -16,7 +16,7 @@ book-library 是一个简单的图书管理系统，集成web端，并提供api�
 
 ### install Tengine(nginx)
 
-
+[install tengine on centos 6.5](doc/install-tengine-on-centos-6.5_64.md)add
  
 ## 运行
 
