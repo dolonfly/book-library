@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require("./app/book-library-config");
+var BookLibraryLogger = require("./app/book-library-logger");
 
 var apiRoutes = require('./app/routes/api-routes');
 
@@ -53,6 +55,9 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+require("./app/models/mongo").init(config.db);
+BookLibraryLogger.info("Load config as: " + JSON.stringify(config));
 
 
 module.exports = app;

@@ -1,11 +1,17 @@
 {
-    "db": {
+  "db": {
     "uri": "mongodb://localhost:27017/{{DB_NAME}}",
-        "options": {
-        "server": {"poolSize": 5},
-        "replset": {"socketOptions": {"keepAlive": 1}}
+    "options": {
+      "server": {
+        "poolSize": 5
+      },
+      "replset": {
+        "socketOptions": {
+          "keepAlive": 1
+        }
+      }
     }
-},
-    "autoUpdate": "{{cronTime}}",
-    "logDir": "{{ROOT_DIR}}/logs"
+  },
+  "autoUpdate": "{{cronTime}}",
+  "logDir": "{{ROOT_DIR}}/logs"
 }

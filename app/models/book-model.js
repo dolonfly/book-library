@@ -2,11 +2,12 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var connection = require('./mongo').defaultConnection();
 
 var BookSchema = new Schema({
     name: String,
     url: String,
-    pics: [String],
+    images: Schema.Types.Mixed,
     orderId: Number,
     isbn10: String,
     isbn13: String,
@@ -20,12 +21,13 @@ var BookSchema = new Schema({
     abstract: String,
     catalog: String,
     page: Number,
-    tags: [String]
+    tags: Schema.Types.Mixed,
+    stock: {type: Number, default: 1}
 
 }, {
     collection: 'books'
 });
 
-var Book = mongoose.model('Book', BookSchema);
+var Book = connection.model('Book', BookSchema);
 
 module.exports = Book;

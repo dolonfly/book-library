@@ -28,7 +28,7 @@ function generateBook(isbn, callback) {
             var item = {
                 name: json5.title,
                 url: json5.alt,
-                pics: json5.images,
+                images: json5.images,
                 isbn10: json5.isbn10,
                 isbn13: json5.isbn13,
                 author: json5.author,
