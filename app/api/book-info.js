@@ -15,15 +15,15 @@ function generateBookInfo(req, res, next) {
 function saveBookByIsbn(req, res, next) {
     var isbn = req.param('isbn');
     if (isbn == null) {
-        res.json('{"sucess":false}');
+        res.json('{"success":false}');
     }
     douban_service.generateBook(isbn, function (err, resout) {
         if (err)
-            res.json('{"sucess":false}');
+            res.json('{"success":false}');
         else {
             book_service.save(resout, function (err, res1) {
                 if (err) {
-                    res.json('{"sucess":false}');
+                    res.json('{"success":false}');
                 } else {
                     res.json(res1);
                 }
@@ -50,8 +50,23 @@ function find(req, res, next) {
     }
 }
 
+function deleteBookById(req, res, next) {
+    var id = req.param('id');
+    if (id != null) {
+        console.log("id" + id);
+        book_service.changeStock(id, 0, function (err, resout) {
+            if (!err) {
+                res.json('{"success":true}');
+                next();
+            }
+        })
+    }
+    res.json('{"success":false}');
+}
+
 module.exports = {
     generateBookInfo: generateBookInfo,
     saveBook: saveBookByIsbn,
-    find: find
+    find: find,
+    delete: deleteBookById
 };

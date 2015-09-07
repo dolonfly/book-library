@@ -35,10 +35,22 @@ function findByTitle(title, callback) {
     });
 }
 
+function changeSrock(id, stock, callback) {
+    Book.findById(id, function (err, found) {
+            if (!err) {
+                found.stock = stock;
+                found.save();
+                //callback(null, null);
+                //TODO 不知道为什么加上callback后就会出现错误：error: uncaughtException: Can't set headers after they are sent
+            }
+        }
+    );
+}
 
 module.exports = {
     save: saveBook,
     findByIsbn: findByIsbn,
-    findByTitle: findByTitle
+    findByTitle: findByTitle,
+    changeStock: changeSrock
 };
 
