@@ -57,11 +57,11 @@ function deleteBookById(req, res, next) {
         book_service.changeStock(id, 0, function (err, resout) {
             if (!err) {
                 res.json('{"success":true}');
-                next();
+                return;
             }
         })
-    }
-    res.json('{"success":false}');
+    } else
+        res.json('{"success":false}');
 }
 
 module.exports = {
