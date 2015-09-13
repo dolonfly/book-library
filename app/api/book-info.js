@@ -64,9 +64,20 @@ function deleteBookById(req, res, next) {
         res.json('{"success":false}');
 }
 
+function listNewBooks(req, res, next) {
+    book_service.listLatestBooks(function (err, resout) {
+        if (!err) {
+            res.json(resout);
+        } else {
+            res.json('{"success":false}');
+        }
+    });
+}
+
 module.exports = {
     generateBookInfo: generateBookInfo,
     saveBook: saveBookByIsbn,
     find: find,
-    delete: deleteBookById
+    delete: deleteBookById,
+    newBooks: listNewBooks
 };

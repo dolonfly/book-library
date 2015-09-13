@@ -45,10 +45,15 @@ function changeSrock(id, stock, callback) {
     );
 }
 
+function listLatestBooks(callback) {
+    Book.find().limit(10).sort({_id: -1}).exec(callback);
+}
+
 module.exports = {
     save: saveBook,
     findByIsbn: findByIsbn,
     findByTitle: findByTitle,
-    changeStock: changeSrock
+    changeStock: changeSrock,
+    listLatestBooks: listLatestBooks
 };
 
