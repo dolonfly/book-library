@@ -21,7 +21,7 @@ function findByIsbn(isbn, callback) {
         obj = {isbn10: isbn};
     }
     Book.findOne(obj, function (err, doc) {
-        callback(null, doc);
+        callback(err, doc);
     });
 }
 
@@ -45,8 +45,8 @@ function changeSrock(id, stock, callback) {
     );
 }
 
-function listLatestBooks(callback) {
-    Book.find().limit(10).sort({_id: -1}).exec(callback);
+function listLatestBooks(limit, callback) {
+    Book.find({}, {"_id": 0, "__v": 0}).limit(limit).sort({_id: -1}).exec(callback);
 }
 
 module.exports = {
