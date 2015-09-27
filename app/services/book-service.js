@@ -46,7 +46,7 @@ function changeSrock(id, stock, callback) {
 }
 
 function listLatestBooks(limit, callback) {
-    Book.find({}, {"_id": 0, "__v": 0}).limit(limit).sort({_id: -1}).exec(callback);
+    Book.find({}, {"_id": 0, name: 1,images:1,isbn10:1,isbn13:1,author:1,page:1}).limit(limit).sort({_id: -1}).exec(callback);
 }
 
 module.exports = {
