@@ -13,5 +13,6 @@
     }
   },
   "autoUpdate": "{{cronTime}}",
-  "logDir": "{{ROOT_DIR}}/logs"
+  "logDir": "{{ROOT_DIR}}/logs",
+  "port": 3000
 }

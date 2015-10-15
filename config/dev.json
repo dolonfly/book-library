@@ -2,5 +2,6 @@
   "global": {
     "DB_NAME": "book-library-local",
     "cronTime": "* * 2 * *"
-  }
+  },
+  "port": 3001
 }

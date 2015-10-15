@@ -63,8 +63,3 @@ module.exports = {
     register: register,
     login: login
 };
-
-login("1", "1", function (err, res) {
-    console.log(err);
-    console.log(res);
-});
