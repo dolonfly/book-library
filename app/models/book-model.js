@@ -7,7 +7,7 @@ var connection = require('./mongo').defaultConnection();
 var BookSchema = new Schema({
     name: String,
     url: String,
-    images: Schema.Types.Mixed,
+    image: String,
     orderId: Number,
     isbn10: String,
     isbn13: String,

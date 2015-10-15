@@ -19,7 +19,7 @@ function generateBook(isbn, callback) {
         }
     };
     request(options, function (err, res) {
-            if (err) return callack;
+            if (err) return callack(err,res);
 
             var html = iconv.decode(res.body, "utf-8");
 
@@ -28,7 +28,7 @@ function generateBook(isbn, callback) {
             var item = {
                 name: json5.title,
                 url: json5.alt,
-                images: json5.images,
+                image: json5.image.replace('/mpic/','/lpic/'),
                 isbn10: json5.isbn10,
                 isbn13: json5.isbn13,
                 author: json5.author,
@@ -49,5 +49,5 @@ function generateBook(isbn, callback) {
 }
 
 module.exports = {
-    generateBook:generateBook
+    generateBook: generateBook
 };
