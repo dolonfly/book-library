@@ -1,0 +1,17 @@
+{
+  "apps" : [{
+    "name"        : "book-library-uat",
+    "script"      : "./bin/www",
+    "args"        : [],
+    "log_date_format"  : "YYYY-MM-DD HH:mm Z",
+    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules"],
+    "watch"       : true,
+    "instances"  : 1,
+    "node_args"   : "",
+    "cwd"         : ".",
+    "exec_mode"  : "cluster_mode",
+    "env": {
+      "NODE_ENV": "uat"
+    }
+  }]
+}
