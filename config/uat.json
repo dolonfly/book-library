@@ -1,0 +1,7 @@
+{
+  "global": {
+    "DB_NAME": "book-library-uat",
+    "cronTime": "* * 2 * *"
+  },
+  "port": 3002
+}
