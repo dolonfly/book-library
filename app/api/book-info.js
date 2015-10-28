@@ -4,34 +4,31 @@ var Resout = require("../models/result");
 
 function generateBookInfo(req, res, next) {
     var isbn = req.param('isbn');
-    if (isbn == null) {
-
+    if (isbn == null || (isbn.length != 10 && isbn.length != 13)) {
+        res.state(400).send({
+            message: 'isbn is not a valid value'
+        });
+        return;
     }
-
-    douban_service.generateBook(isbn, function (err, resout) {
-        res.json(resout);
-    });
-}
-
-function saveBookByIsbn(req, res, next) {
-    var isbn = req.param('isbn');
-    if (isbn == null) {
-        res.json('{"success":false}');
-    }
-    douban_service.generateBook(isbn, function (err, resout) {
-        if (err)
-            res.json('{"success":false}');
-        else {
-            book_service.save(resout, function (err, res1) {
-                if (err) {
-                    res.json('{"success":false}');
-                } else {
-                    res.json(res1);
-                }
+    book_service.findByIsbn(isbn, function (err, data) {
+        if (err) {
+            res.send({
+                code: 400,
+                msg: "search book by isbn err"
             });
+        } else {
+            if (data) {
+                res.json({code: 200, data: data});
+            } else {
+                res.status(404).send({
+                    message: 'the book not found'
+                });
+                return;
+            }
         }
     });
 }
+
 
 /**
  * 通过isbn或者图书名称进行查找，如果存在isbn，则返回结果为1个，如果为title，返回结果为多个
@@ -100,7 +97,6 @@ function listNewBooks(req, res, next) {
 
 module.exports = {
     generateBookInfo: generateBookInfo,
-    saveBook: saveBookByIsbn,
     find: find,
     delete: deleteBookById,
     newBooks: listNewBooks
