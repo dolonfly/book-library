@@ -38,7 +38,7 @@ function findByIsbn(isbn, callback) {
                             if (err) {
                                 callback(err);
                             } else {
-                                callback(err, book);
+                                callback(err, res);
                             }
                         });
 
