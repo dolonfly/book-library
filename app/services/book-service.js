@@ -101,8 +101,3 @@ module.exports = {
     addStock:addBookStock,
     listLatestBooks: listLatestBooks
 };
-
-findByIsbn("9787304074951", function (err, res) {
-    console.log(err);
-    console.log(res);
-});
