@@ -14,13 +14,10 @@ function saveBook(book, callback) {
 }
 
 function findByIsbn(isbn, callback) {
-    var obj;
-    if (isbn.length == 13) {
-        obj = {isbn13: isbn};
-    } else {
-        obj = {isbn10: isbn};
+    if (isbn.length == 10) {
+        isbn = isbnSuite.convert.isbn10to13(isbn);
     }
-    Book.findOne(obj, function (err, doc) {
+    Book.findOne({isbn13: isbn}, function (err, doc) {
         callback(err, doc);
     });
 }
