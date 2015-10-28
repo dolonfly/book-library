@@ -1,6 +1,7 @@
 'use strict';
 
 var Book = require("../models/book-model");
+var book_store_service = require('./book-store-service');
 
 function saveBook(book, callback) {
     Book.create(book, function (err, result) {
@@ -13,12 +14,40 @@ function saveBook(book, callback) {
     });
 }
 
+/**
+ * 在本系统中搜索对应isbn的图书信息
+ * 如果没有找到，则从其他系统抓取此图书信息，并存入本库中
+ * 成功之后，返回对应图书信息
+ * @param isbn
+ * @param callback
+ */
 function findByIsbn(isbn, callback) {
     if (isbn.length == 10) {
         isbn = isbnSuite.convert.isbn10to13(isbn);
     }
     Book.findOne({isbn13: isbn}, function (err, doc) {
-        callback(err, doc);
+        if (err) {
+            callback(err);
+        } else {
+            if (!doc) {
+                book_store_service.generateBook(isbn, function (err, book) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        saveBook(book, function (err, res) {
+                            if (err) {
+                                callback(err);
+                            } else {
+                                callback(err, book);
+                            }
+                        });
+
+                    }
+                });
+            } else {
+                callback(err, doc);
+            }
+        }
     });
 }
 
@@ -62,3 +91,7 @@ module.exports = {
     listLatestBooks: listLatestBooks
 };
 
+findByIsbn("9787304074951", function (err, res) {
+    console.log(err);
+    console.log(res);
+});
