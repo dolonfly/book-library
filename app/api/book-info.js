@@ -115,8 +115,13 @@ function listNewBooks(req, res, next) {
         if (!err) {
             result.code = 200;
             result.data = data;
+            res.json(result);
+        } else {
+            res.status(400).send({
+                code: 400,
+                message: 'it seems some err in service,please try again'
+            });
         }
-        res.json(result);
     });
 }
 

@@ -54,7 +54,7 @@ function findByIsbn(isbn, callback) {
 function findByTitle(title, callback) {
     Book.find({
         $or: [
-            {name: new RegExp(title, 'i')}, {subTitle: new RegExp(title, 'i')}
+            {title: new RegExp(title, 'i')}, {subTitle: new RegExp(title, 'i')}
         ]
     }).limit(20).exec(function (err, res) {
         callback(err, res);
@@ -92,12 +92,12 @@ function addBookStock(isbn, stockNum, callback) {
 function listLatestBooks(limit, callback) {
     Book.find({}, {
         "_id": 0,
-        name: 1,
+        title: 1,
         image: 1,
         isbn10: 1,
         isbn13: 1,
         author: 1,
-        page: 1
+        pages: 1
     }).limit(limit).sort({_id: -1}).exec(callback);
 }
 
