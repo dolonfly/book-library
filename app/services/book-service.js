@@ -61,10 +61,20 @@ function findByTitle(title, callback) {
     });
 }
 
-function changeSrock(id, stock, callback) {
+function changeBookStock(id, stock, callback) {
     Book.findById(id, function (err, found) {
             if (!err) {
                 found.stock = stock;
+                found.save(callback);
+            }
+        }
+    );
+}
+
+function addBookStock(id, stockNum, callback) {
+    Book.findById(id, function (err, found) {
+            if (!err) {
+                found.stock = stock + stockNum;
                 found.save(callback);
             }
         }
@@ -87,7 +97,8 @@ module.exports = {
     save: saveBook,
     findByIsbn: findByIsbn,
     findByTitle: findByTitle,
-    changeStock: changeSrock,
+    changeStock: changeBookStock,
+    addStock:addBookStock,
     listLatestBooks: listLatestBooks
 };
 
