@@ -22,7 +22,7 @@ var BookSchema = new Schema({
     catalog: String,
     page: Number,
     tags: Schema.Types.Mixed,
-    stock: {type: Number, default: 1}
+    stock: {type: Number, default: 0}
 
 }, {
     collection: 'books'
