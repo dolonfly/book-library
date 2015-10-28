@@ -29,6 +29,31 @@ function generateBookInfo(req, res, next) {
     });
 }
 
+function addBook(req, res, next) {
+    var isbn = req.query.isbn;
+    if (isbn == null || (isbn.length != 10 && isbn.length != 13)) {
+        res.state(400).send({
+            message: 'isbn is not a valid value'
+        });
+        return;
+    }
+    book_service.addStock(isbn, 1, function (err, resout) {
+        if (err) {
+            res.state(500).send({
+                message: 'service seems make some err'
+            });
+            return;
+        } else {
+            res.json({
+                code: 200,
+                data: {
+                    stock: resout.stock
+                }
+            });
+        }
+    });
+}
+
 
 /**
  * 通过isbn或者图书名称进行查找，如果存在isbn，则返回结果为1个，如果为title，返回结果为多个
@@ -97,6 +122,7 @@ function listNewBooks(req, res, next) {
 
 module.exports = {
     generateBookInfo: generateBookInfo,
+    addBook: addBook,
     find: find,
     delete: deleteBookById,
     newBooks: listNewBooks

@@ -61,8 +61,11 @@ function findByTitle(title, callback) {
     });
 }
 
-function changeBookStock(id, stock, callback) {
-    Book.findById(id, function (err, found) {
+function changeBookStock(isbn, stock, callback) {
+    if (isbn.length == 10) {
+        isbn = isbnSuite.convert.isbn10to13(isbn);
+    }
+    Book.findOne({isbn13: isbn}, function (err, found) {
             if (!err) {
                 found.stock = stock;
                 found.save(callback);
@@ -71,11 +74,16 @@ function changeBookStock(id, stock, callback) {
     );
 }
 
-function addBookStock(id, stockNum, callback) {
-    Book.findById(id, function (err, found) {
+function addBookStock(isbn, stockNum, callback) {
+    if (isbn.length == 10) {
+        isbn = isbnSuite.convert.isbn10to13(isbn);
+    }
+    Book.findOne({isbn13: isbn}, function (err, found) {
             if (!err) {
-                found.stock = stock + stockNum;
+                found.stock = found.stock + stockNum;
                 found.save(callback);
+            } else {
+                callback(err);
             }
         }
     );
@@ -98,6 +106,6 @@ module.exports = {
     findByIsbn: findByIsbn,
     findByTitle: findByTitle,
     changeStock: changeBookStock,
-    addStock:addBookStock,
+    addStock: addBookStock,
     listLatestBooks: listLatestBooks
 };
