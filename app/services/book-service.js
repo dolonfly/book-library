@@ -90,7 +90,7 @@ function addBookStock(isbn, stockNum, callback) {
 }
 
 function listLatestBooks(limit, callback) {
-    Book.find({}, {
+    Book.find({stock: {$gte: 1}}, {
         "_id": 0,
         title: 1,
         image: 1,
