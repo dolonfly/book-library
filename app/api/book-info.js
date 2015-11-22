@@ -125,10 +125,24 @@ function listNewBooks(req, res, next) {
     });
 }
 
+function count(req, res, next) {
+    book_service.listCount(function (err, data) {
+        if (err) {
+            res.status(400).send({
+                code: 400,
+                message: 'it seems some err in service,please try again'
+            });
+        } else {
+            res.json({code: 200, count: data});
+        }
+    });
+}
+
 module.exports = {
     generateBookInfo: generateBookInfo,
     addBook: addBook,
     find: find,
     delete: deleteBookById,
-    newBooks: listNewBooks
+    newBooks: listNewBooks,
+    count: count
 };

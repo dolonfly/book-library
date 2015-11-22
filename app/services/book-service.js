@@ -101,11 +101,16 @@ function listLatestBooks(limit, callback) {
     }).limit(limit).sort({_id: -1}).exec(callback);
 }
 
+function listBookCount(callback) {
+    Book.find({stock: {$gte: 1}}).count().exec(callback);
+}
+
 module.exports = {
     save: saveBook,
     findByIsbn: findByIsbn,
     findByTitle: findByTitle,
     changeStock: changeBookStock,
     addStock: addBookStock,
-    listLatestBooks: listLatestBooks
+    listLatestBooks: listLatestBooks,
+    listCount: listBookCount
 };
