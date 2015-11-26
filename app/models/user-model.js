@@ -11,7 +11,8 @@ var UserSchema = new Schema({
     nickName: String,
     social: {WeChat: String},
     authority: {token: String, expire: Date},
-    permission: {addBook: {type: Boolean, default: false}}
+    permission: {addBook: {type: Boolean, default: false}},
+    borrows: []
 }, {
     collection: 'users'
 });
