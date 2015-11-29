@@ -3,12 +3,13 @@
 var PreOrder = require('../models/pre-order-model');
 var BookLibraryErr = require('../utils/book-library-err');
 
-function addAPreOrderList(userName, book, callback) {
+function addAPreOrderList(user, book, callback) {
     if (!book || !book.isbn)
         return callback(new BookLibraryErr.BadRequestError());
-    userName = userName ? userName : 'admin_';
+    if (!user)
+        user = {userName: 'admin_', nickName: 'admin_'};
 
-    PreOrder.findOneAndUpdate({userName: userName}, {$addToSet: {books: book}}, {new: true, upsert: true}, callback);
+    PreOrder.create({user: user, book: book}, callback);
 }
 
 function listPreOrders(callback) {

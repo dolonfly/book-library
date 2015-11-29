@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 var connection = require("./mongo").defaultConnection();
 
 var PreOrderSchema = new Schema({
-    userName: String,
-    books: []
+    user: {},
+    book: {}
 }, {
     collection: 'pre_orders'
 });

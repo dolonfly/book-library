@@ -11,7 +11,8 @@ function listPreOrders(req, res, next) {
 }
 
 function addPreOrder(req, res, next) {
-    PreOrderService.addAPreOrderList(req.body.userName, req.body.book, function (err, order) {
+    console.log(req.body);
+    PreOrderService.addAPreOrderList(req.body.user, req.body.book, function (err, order) {
         if (err)
             return next(err);
         res.json(order);
