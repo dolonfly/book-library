@@ -126,11 +126,17 @@ function listNewBooks(req, res, next) {
 }
 
 function listBooks(req, res, next) {
-    book_service.listBooks(req.query.cursor, 20, function (err, books) {
+    var cursor = req.query.cursor;
+    var date = new Date(cursor);
+    book_service.listBooks(date, 20, function (err, books) {
         if (err) {
             return next(err);
         }
-        res.json(books);
+        cursor = books.length > 0 ? books[books.length - 1].createDate.getTime() : cursor;
+        res.json({
+            cursor: cursor,
+            data: books
+        });
     });
 }
 
