@@ -102,7 +102,7 @@ function listLatestBooks(limit, callback) {
 }
 
 function listBooks(cursor, limit, callback) {
-    Book.find({stock: {$gte: 1}, createDate: {$lte: cursor}}).sort({_id: -1}).limit(limit).exec(callback);
+    Book.find({$and: [{stock: {$gte: 1}}, {createDate: {$lte: cursor}}]}).sort({_id: -1}).limit(limit).exec(callback);
 }
 
 function listBookCount(callback) {
