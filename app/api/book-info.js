@@ -127,7 +127,12 @@ function listNewBooks(req, res, next) {
 
 function listBooks(req, res, next) {
     var cursor = req.query.cursor;
-    var date = new Date(cursor || Date.now());
+    var date = new Date();
+    if (cursor) {
+        date.setTime(cursor);
+    }
+    console.log("date:" + date);
+    console.log(cursor);
     book_service.listBooks(date, 20, function (err, books) {
         if (err) {
             return next(err);
