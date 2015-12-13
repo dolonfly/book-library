@@ -125,6 +125,15 @@ function listNewBooks(req, res, next) {
     });
 }
 
+function listBooks(req, res, next) {
+    book_service.listBooks(req.query.cursor, 20, function (err, books) {
+        if (err) {
+            return next(err);
+        }
+        res.json(books);
+    });
+}
+
 function count(req, res, next) {
     book_service.listCount(function (err, data) {
         if (err) {
@@ -144,5 +153,6 @@ module.exports = {
     find: find,
     delete: deleteBookById,
     newBooks: listNewBooks,
-    count: count
+    count: count,
+    listBooks: listBooks
 };

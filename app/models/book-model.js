@@ -24,7 +24,8 @@ var BookSchema = new Schema({
     image: String,//图片url
     catalog: String,//目录
     summary: String,//内容简介
-    stock: {type: Number, default: 0}
+    stock: {type: Number, default: 0},
+    createDate: {type: Date, default: Date.now()}
 
 }, {
     collection: 'books'

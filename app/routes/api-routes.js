@@ -9,6 +9,7 @@ router.get('/book/add', book_info.addBook);
 router.get('/book/find', book_info.find);
 router.get('/book/delete', book_info.delete);
 router.get('/book/news', book_info.newBooks);
+router.get('/books', book_info.listBooks);
 router.get('/book/count', book_info.count);
 
 router.get('/user/login', user_api.login);
